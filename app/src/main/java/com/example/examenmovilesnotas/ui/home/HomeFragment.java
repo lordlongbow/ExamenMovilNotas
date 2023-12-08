@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleRegistryOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.examenmovilesnotas.R;
@@ -29,12 +31,18 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         vm =  new ViewModelProvider(this).get(HomeViewModel.class);
-
+        vm = new HomeViewModel(this);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         cargarInit(root);
 
+        vm.getNotaMutableEditText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                et_nota.setText(s);
+            }
+        });
 
         return root;
     }
@@ -48,16 +56,15 @@ public class HomeFragment extends Fragment {
     public void cargarInit(View root){
         et_nota = root.findViewById(com.example.examenmovilesnotas.R.id.et_nota);
         btn_agregar = root.findViewById(com.example.examenmovilesnotas.R.id.btn_Agregar);
-        mensaje = root.findViewById(com.example.examenmovilesnotas.R.id.tv_mensaje);
-
-
 
         btn_agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String nota = et_nota.getText().toString();
                 Log.d("nota", nota);
+
                 vm.agregarNota(nota);
+                vm.setNotaMutableEditText("");
             }
         });
     }

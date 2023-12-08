@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.examenmovilesnotas.R;
 import com.example.examenmovilesnotas.databinding.FragmentGalleryBinding;
+import com.example.examenmovilesnotas.request.Funciones;
 
 public class GalleryFragment extends Fragment {
 
@@ -43,8 +45,10 @@ public class GalleryFragment extends Fragment {
 
         public void fragmentInit(View root){
             rv = root.findViewById(R.id.rv_ListaTareas);
-        vm = new ViewModelProvider(this).get(GalleryViewModel.class);
-        adapter = new Adapter(contexto, vm.getNotas(), LayoutInflater.from(contexto));
+
+            GridLayoutManager gridLayoutManager= new GridLayoutManager(contexto,1, GridLayoutManager.VERTICAL,false);
+       rv.setLayoutManager(gridLayoutManager);
+            adapter = new Adapter(contexto, Funciones.getLista(), getLayoutInflater());
         rv.setAdapter(adapter);
 
     }

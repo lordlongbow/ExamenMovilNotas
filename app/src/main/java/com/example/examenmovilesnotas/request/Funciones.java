@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Funciones {
 
     private String nota;
-    public ArrayList<String> notas = new ArrayList<>();
+    public static ArrayList<String> notas = new ArrayList<>();
 
 
-    public void agregarNotaALista(String nota){
+    public static void agregarNotaALista(String nota){
         notas.add(nota);
     }
 
-   public ArrayList<String> getLista(){
+   public static ArrayList<String> getLista(){
        return notas;
    }
 

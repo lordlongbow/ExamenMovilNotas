@@ -1,6 +1,7 @@
 package com.example.examenmovilesnotas.ui.gallery;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +17,15 @@ import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private Funciones funciones;
-
     private Context contexto;
     private ArrayList<String> notas;
     private LayoutInflater li;
 
     public Adapter(Context contexto, ArrayList<String> notas, LayoutInflater li) {
         this.contexto = contexto;
-        this.notas = notas;
+        this.notas=notas;
         this.li = li;
+        Log.d("salida ",this.notas.size()+"");
     }
 
 
@@ -37,13 +38,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
-        notas = funciones.getLista();
         holder.tv_texto.setText(notas.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.notas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
